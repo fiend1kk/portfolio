@@ -1,103 +1,139 @@
+"use client";
+import Section from "@/components/Section";
+import ProjectCard from "@/components/ProjectCard";
+import { projects } from "@/lib/projects";
 import Image from "next/image";
+import { useState } from "react";
 
-export default function Home() {
+
+export default function HomePage() {
+  const [showContact, setShowContact] = useState(false);
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div className="min-h-screen bg-gradient-to-b from-white via-zinc-50 to-white dark:from-zinc-950 dark:via-zinc-900 dark:to-zinc-950 transition-colors">
+      {/* Hero */}
+      <section className="relative overflow-hidden">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-rose-50 dark:from-zinc-950 dark:via-zinc-900 dark:to-indigo-950"
         />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+        <Section className="relative pt-20 pb-24">
+          <div className="grid gap-10 md:grid-cols-2 items-center">
+            <div>
+              <p className="text-sm tracking-widest uppercase opacity-70">Full-stack Developer</p>
+              <h1 className="mt-2 text-4xl md:text-5xl font-extrabold leading-tight">
+                Hi, I’m{" "}
+                <span className="underline decoration-4 decoration-indigo-500">
+                  Masyn Roth
+                </span>.
+              </h1>
+              <p className="mt-4 text-lg opacity-90">
+                I build fast, accessible web apps with Next.js and TypeScript.
+              </p>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href="#projects"
+                  className="px-4 py-2 rounded-md border transition hover:shadow-sm"
+                >
+                  View Projects
+                </a>
+                <button
+                  onClick={() => setShowContact(!showContact)}
+                  className="px-4 py-2 rounded-md bg-indigo-600 text-white dark:bg-indigo-500 dark:text-white transition hover:opacity-90"
+                >
+                  {showContact ? "Hide Contact" : "Contact"}
+                </button>
+              </div>
+
+              {showContact && (
+                <div className="mt-4 rounded-lg border bg-white/80 dark:bg-zinc-900/70 backdrop-blur-sm p-4 space-y-2 text-sm shadow-md">
+                  <p>📞 (724) 888-6655</p>
+                  <p>
+                    💼{""}
+                    <a
+                      href="https://www.linkedin.com/in/masyn-roth-a17815326"
+                      target="_blank"
+                      className="underline"
+                    >
+                      linkedin.com/in/masyn-roth
+                    </a>
+                  </p>
+                  <p>
+                    📧{" "}
+                    <a href="masyn.roth@icloud.com" className="underline">
+                      masyn.roth@icloud.com
+                    </a>
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="justify-self-center md:justify-self-end relative">
+              <div
+                aria-hidden
+                className="absolute inset-0 translate-x-2 translate-y-2 rounded-full blur-2xl bg-indigo-300/30 dark:bg-indigo-600/20"
+              />
+              <Image
+                src="/me.jpg"
+                alt="Masyn Roth"
+                width={224}
+                height={224}
+                className="relative h-40 w-40 md:h-56 md:w-56 rounded-full border shadow-lg object-cover ring-4 ring-white dark:ring-zinc-900"
+                priority
+              />
+            </div>
+          </div>
+        </Section>
+      </section>
+
+      {/* Projects */}
+      <Section id="projects" title="Projects" subtitle="Selected work">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((p) => (
+            <div
+              key={p.slug}
+              className="group rounded-xl border bg-white/70 dark:bg-zinc-900/60 backdrop-blur-sm transition hover:-translate-y-0.5 hover:shadow-lg"
+            >
+              <ProjectCard project={p} />
+            </div>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </Section>
+
+      {/* About */}
+      <Section id="about" title="About" subtitle="A bit about me">
+        <div className="grid gap-8 md:grid-cols-[240px,1fr] items-start">
+          <div className="rounded-xl border bg-gradient-to-br from-indigo-100 to-rose-100 dark:from-indigo-900/40 dark:to-rose-900/30 p-6">
+            <ul className="space-y-3 text-sm">
+              <li className="flex items-center gap-2">
+                <span className="inline-block h-2.5 w-2.5 rounded-full bg-indigo-500" />
+                <span>Next.js, React, Node, Prisma, Postgres</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="inline-block h-2.5 w-2.5 rounded-full bg-rose-500" />
+                <span>DX, performance budgets, accessibility</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                <span>Based in Your City (remote-friendly)</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="prose dark:prose-invert max-w-none">
+            <p>
+              I’m a full-stack developer focused on product quality, DX, and performance.
+              I love TypeScript, React, and edge-rendered APIs. My background in graphic design
+              means I sweat the details: spacing, rhythm, and how things feel as you use them.
+            </p>
+            <p>
+              Recent work includes performant dashboards, content sites on the edge, and component
+              systems that scale across teams.
+            </p>
+          </div>
+        </div>
+      </Section>
     </div>
   );
 }
