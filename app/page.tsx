@@ -5,7 +5,6 @@ import { projects } from "@/lib/projects";
 import Image from "next/image";
 import { useState } from "react";
 
-
 export default function HomePage() {
   const [showContact, setShowContact] = useState(false);
 
@@ -20,7 +19,9 @@ export default function HomePage() {
         <Section className="relative pt-20 pb-24">
           <div className="grid gap-10 md:grid-cols-2 items-center">
             <div>
-              <p className="text-sm tracking-widest uppercase opacity-70">Full-stack Developer</p>
+              <p className="text-sm tracking-widest uppercase opacity-70">
+                CS Student & Full-stack Developer
+              </p>
               <h1 className="mt-2 text-4xl md:text-5xl font-extrabold leading-tight">
                 Hi, I’m{" "}
                 <span className="underline decoration-4 decoration-indigo-500">
@@ -38,30 +39,49 @@ export default function HomePage() {
                 >
                   View Projects
                 </a>
+
+                {/* Resume */}
+                <a
+                  href="/MasynRoth-Resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  download
+                  className="px-4 py-2 rounded-md border transition hover:shadow-sm"
+                >
+                  Resume
+                </a>
+
+                {/* Contact toggle */}
                 <button
                   onClick={() => setShowContact(!showContact)}
-                  className="px-4 py-2 rounded-md bg-indigo-600 text-white dark:bg-indigo-500 dark:text-white transition hover:opacity-90"
+                  className="px-4 py-2 rounded-md bg-indigo-600 text-white dark:bg-indigo-500 transition hover:opacity-90"
+                  aria-expanded={showContact}
+                  aria-controls="contact-card"
                 >
                   {showContact ? "Hide Contact" : "Contact"}
                 </button>
               </div>
 
               {showContact && (
-                <div className="mt-4 rounded-lg border bg-white/80 dark:bg-zinc-900/70 backdrop-blur-sm p-4 space-y-2 text-sm shadow-md">
+                <div
+                  id="contact-card"
+                  className="mt-4 rounded-lg border bg-white/80 dark:bg-zinc-900/70 backdrop-blur-sm p-4 space-y-2 text-sm shadow-md"
+                >
                   <p>📞 (724) 888-6655</p>
                   <p>
-                    💼{""}
+                    💼{" "}
                     <a
                       href="https://www.linkedin.com/in/masyn-roth-a17815326"
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="underline"
                     >
-                      linkedin.com/in/masyn-roth
+                      linkedin.com/in/masyn-roth-a17815326
                     </a>
                   </p>
                   <p>
                     📧{" "}
-                    <a href="masyn.roth@icloud.com" className="underline">
+                    <a href="mailto:masyn.roth@icloud.com" className="underline">
                       masyn.roth@icloud.com
                     </a>
                   </p>
@@ -101,36 +121,58 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* About */}
-      <Section id="about" title="About" subtitle="A bit about me">
-        <div className="grid gap-8 md:grid-cols-[240px,1fr] items-start">
+      {/* About / Highlights & Education */}
+      <Section id="about" title="About Me:" >
+        <div className="grid gap-8 md:grid-cols-[280px,1fr] items-start">
+          {/* Highlights card */}
           <div className="rounded-xl border bg-gradient-to-br from-indigo-100 to-rose-100 dark:from-indigo-900/40 dark:to-rose-900/30 p-6">
             <ul className="space-y-3 text-sm">
               <li className="flex items-center gap-2">
                 <span className="inline-block h-2.5 w-2.5 rounded-full bg-indigo-500" />
-                <span>Next.js, React, Node, Prisma, Postgres</span>
+                <span>Based in Pittsburgh, PA (remote-friendly)</span>
               </li>
-              <li className="flex items-center gap-2">
-                <span className="inline-block h-2.5 w-2.5 rounded-full bg-rose-500" />
-                <span>DX, performance budgets, accessibility</span>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-rose-500" />
+                <span>
+                  Lua App Developer @ Cressida Studios (Mar 2024–Present). Reached 1M+ users and
+                  $30k+ revenue; led features, perf optimizations, and stability improvements.
+                </span>
               </li>
-              <li className="flex items-center gap-2">
-                <span className="inline-block h-2.5 w-2.5 rounded-full bg-emerald-500" />
-                <span>Based in Your City (remote-friendly)</span>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                <span>
+                  Built a Python + SQL Discord analytics bot: real-time ingest, storage,
+                  and reporting.
+                </span>
+              </li>
+              <li className="flex items-start gap-2">
+                <span className="mt-1 inline-block h-2.5 w-2.5 rounded-full bg-sky-500" />
+                <span>
+                  Tooling: JS/TS (React/Next, Node), Python, Java; SQL (Postgres/MySQL), MongoDB;
+                  AI/ML (PyTorch, TensorFlow, OpenAI APIs).
+                </span>
               </li>
             </ul>
           </div>
 
+          {/* Bio + education */}
           <div className="prose dark:prose-invert max-w-none">
             <p>
-              I’m a full-stack developer focused on product quality, DX, and performance.
-              I love TypeScript, React, and edge-rendered APIs. My background in graphic design
-              means I sweat the details: spacing, rhythm, and how things feel as you use them.
+              I’m a full-stack developer focused on product quality, DX, and performance. I also
+              bring a graphics design background, so I care deeply about spacing, rhythm, and
+              motion to make interfaces feel great.
             </p>
-            <p>
-              Recent work includes performant dashboards, content sites on the edge, and component
-              systems that scale across teams.
-            </p>
+
+            <h3 className="mt-6">Education</h3>
+            <ul>
+              <li>
+                <strong>Franklin University — B.S. Computer Science</strong> (Sep 2025–Jun 2027)
+                — Pursuing Bachelor&apos;s degree.
+              </li>
+              <li>
+                <strong>Community College of Beaver County — Fundamental CS Courses</strong> (Sep 2023–Jun 2025).
+              </li>
+            </ul>
           </div>
         </div>
       </Section>
